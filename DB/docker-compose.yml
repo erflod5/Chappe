@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  database:
+    image: 'mongo'
+    container_name: 'uSocialDB'
+    environment:
+      MONGO_INITDB_DATABASE: uSocial
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongodb_data_container:/data/db
+    ports:
+      - 27017:27017
+volumes:
+  mongodb_data_container:
