@@ -128,14 +128,14 @@ class UserController{
         res.status(200).json(users);
     }
 
-    public async readFriends(req: Request, res: Response){
+    /*public async readFollowed(req: Request, res: Response){
         const {_id} = req.params;
         const obId = new mongoose.Types.ObjectId(_id);
         console.log(obId);
 
         const users = await User.find({_id : {$ne : obId}},{'_id' : 0}).select('username fullname profileImg').exec();
         res.status(200).json(users);
-    }
+    }*/
 }
 
 export const userController = new UserController();

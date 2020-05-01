@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import Post from '../models/post.model';
-import Friend from '../models/friends.model';
+import Friend from '../models/follows.model';
 import mongoose from 'mongoose';
 
 import * as AWS from 'aws-sdk';

@@ -15,7 +15,7 @@ class UserRoute{
         this.router.put('/:_id',userController.update);
         this.router.delete('/:_id',userController.remove);
         this.router.get('/',userController.readMany);
-        this.router.get('/friends/:_id',userController.readFriends);
+        //this.router.get('/followed/:_id',userController.readFollowed);
     }
 }
 
