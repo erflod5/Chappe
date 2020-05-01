@@ -34,9 +34,15 @@ server.listen(app.get('port'),()=>{
 });
 
 //Socket
+let users = new Map<string,any>();
 io.on('connection',(socket)=>{
     console.log('a user connected');
     socket.on("message", function(message: any) {
         console.log(message);
       });
+
+    socket.on('handshake',(user:any)=>{
+        users.set(user.id,socket.id);
+        
+    });
 });

@@ -104,5 +104,3 @@ dist
 .tern-port
 
 #AWS KEYS
-key.ts
-aws.ts
