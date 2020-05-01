@@ -10,7 +10,7 @@ class PostRoute{
     }
 
     _config() : void {
-        this.router.get('/',postController.read);
+        this.router.get('/:_id',postController.read);
         this.router.post('/',postController.create);
         this.router.post('/Translate',postController.translate);
     }
