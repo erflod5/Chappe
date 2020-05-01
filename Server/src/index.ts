@@ -6,6 +6,7 @@ import UserRoute from './routes/user.route';
 import PostRoute from './routes/post.route';
 import LoginRoute from './routes/login.route';
 import FollowRoute from './routes/follows.route';
+import ChatRoute from './routes/chat.route';
 
 //Init
 const app = express();
@@ -21,6 +22,7 @@ app.use('/api/user',UserRoute);
 app.use('/api/post',PostRoute);
 app.use('/api/login',LoginRoute);
 app.use('/api/follow',FollowRoute);
+app.use('/api/chat',ChatRoute);
 
 app.listen(app.get('port'),()=>{
     console.log(`App listening on port ${app.get('port')}`);
