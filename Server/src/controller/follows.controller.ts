@@ -44,7 +44,7 @@ class FollowController{
 
         console.log(followed_clean);
         const mutualFollow = await Follow.find({user : {$in : followed_clean}, followed : _id})
-                            .populate([{path : 'followed',select : 'username fullname profileImg'}]).select('followed -_id');
+                            .populate([{path : 'user',select : 'username fullname profileImg'}]).select('user -_id');
         res.json(mutualFollow);
     }
     
