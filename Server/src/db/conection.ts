@@ -7,7 +7,8 @@ class Database{
     }
 
     _connect(){
-        mongoose.connect(`mongodb://erflod5:1234@${keyMongo.server}/${keyMongo.database}`,{useNewUrlParser : true,useUnifiedTopology: true});
+        //mongoose.connect(`mongodb://erflod5:1234@${keyMongo.server}/${keyMongo.database}`,{useNewUrlParser : true,useUnifiedTopology: true});
+        mongoose.connect(`mongodb://${keyMongo.server}/${keyMongo.database}`,{useNewUrlParser : true,useUnifiedTopology: true});
         mongoose.set('useCreateIndex',true);
         mongoose.connection.on('open',()=>{
           console.log('Database connection successful')
