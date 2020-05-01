@@ -6,13 +6,12 @@ import mongoose from 'mongoose';
 import * as AWS from 'aws-sdk';
 import {v4 as uuid} from 'uuid';
 import aws_keys from '../keys/aws';
-var s3 = new AWS.S3(aws_keys.s3);
+const s3 = new AWS.S3(aws_keys.s3);
+const translate = new AWS.Translate(aws_keys.translate);
 
 class PostController{
 
-    constructor(){
-
-    }
+    constructor(){}
 
     public async read(req : Request, res : Response){
         let {_id} = req.params;
@@ -74,7 +73,14 @@ class PostController{
     }
 
     public async translate(req : Request, res : Response){
-        res.json({TODO : 'Translate post'});
+        let {text} = req.body;
+        let params = {
+            SourceLanguageCode: 'auto',
+            TargetLanguageCode: 'es',
+            Text: text || 'Nothing here'
+        }
+        let data = await translate.translateText(params).promise();
+        res.json({translate : data.TranslatedText});
     }
 }
 
