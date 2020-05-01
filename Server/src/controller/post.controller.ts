@@ -62,7 +62,6 @@ class PostController{
             res.status(200).json({status : false});
         });
     }
-
 }
 
 export const postController = new PostController();
