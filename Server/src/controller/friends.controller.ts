@@ -32,6 +32,14 @@ class FriendsController{
         });
         res.send(friends);
     }
+
+    public async mutualFriend(req: Request, res: Response){
+        const {user} = req.params;
+        const friends = await Friends.find({user : user}).select('followed -_id');
+        const mutualFriends = await Friends.find({user : {$in : friends}, followed : user}).populate([{path : 'followed'},{path : 'user'}]);
+        res.json(mutualFriends);
+    }
+    
 }
 
 export const friendsController = new FriendsController();

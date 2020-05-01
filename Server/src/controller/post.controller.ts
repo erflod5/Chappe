@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 import Post from '../models/post.model';
+import Friend from '../models/friends.model';
 import mongoose from 'mongoose';
 
 import * as AWS from 'aws-sdk';
@@ -14,7 +15,15 @@ class PostController{
     }
 
     public async read(req : Request, res : Response){
-        const posts = await Post.find({},{'_id' : 0}).populate({path : 'user_id', select : 'username fullname profileImg -_id'}).sort('-creationDate');
+        let {user} = req.body;
+        let followed = await Friend.find({user : user}).select('followed -_id');
+/*        let follows_clean = [];
+        followed.forEach((follow)=>{
+            follows_clean.push(follow.followed);
+        });
+        follows_clean.push(user);*/
+
+        const posts = await Post.find({user_id : {$in: followed}},{'_id' : 0}).populate({path : 'user_id', select : 'username fullname profileImg -_id'}).sort('-creationDate');
         let actualPost : Array<any> = [];
         posts.forEach((post)=>{
             actualPost.push({
@@ -61,6 +70,10 @@ class PostController{
             console.log(err);
             res.status(200).json({status : false});
         });
+    }
+
+    public async translate(req : Request, res : Response){
+        res.json({TODO : 'Translate post'});
     }
 }
 
