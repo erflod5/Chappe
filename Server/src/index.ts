@@ -34,15 +34,24 @@ server.listen(app.get('port'),()=>{
 });
 
 //Socket
-let users = new Map<string,any>();
-io.on('connection',(socket)=>{
+let users : Array<Array<string>> = [];
+
+io.on('connectionc',(socket : any)=>{
     console.log('a user connected');
     socket.on("message", function(message: any) {
         console.log(message);
+        if(users[message.to] != null && users[message.to] != undefined){
+            users[message.to].forEach((user)=>{
+                io.to(user).emit(message);
+            });
+        }
+        //TODO guardar en base de datos
       });
 
     socket.on('handshake',(user:any)=>{
-        users.set(user.id,socket.id);
-        
+        if(users[user] === undefined || users[user] === null){
+            users[user] = [];
+        }
+        users[user].push(socket.id);
     });
 });
