@@ -14,6 +14,7 @@ class FollowRoute{
         this.router.post('/lost',followController.lostFollowed);
         this.router.get('/followed/:_id',followController.getFollowed);
         this.router.get('/mutual/:_id',followController.mutualFollow);
+        this.router.post('/find',followController.findUser);
     }
 }
 
