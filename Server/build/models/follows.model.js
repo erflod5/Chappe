@@ -8,11 +8,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const UserSchema = new mongoose_1.Schema({
-    username: { type: String, required: true, unique: true },
-    fullname: { type: String, required: true },
-    password: { type: String, select: false, required: true },
-    profileImg: { type: String, required: true },
-    covidBot: { type: Boolean, default: false }
+const FollowSchema = new mongoose_1.Schema({
+    user: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User', required: true },
+    followed: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }
 });
-exports.default = mongoose_1.default.model('User', UserSchema);
+exports.default = mongoose_1.default.model('Follow', FollowSchema);

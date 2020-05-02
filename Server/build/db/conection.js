@@ -10,7 +10,8 @@ class Database {
         this._connect();
     }
     _connect() {
-        mongoose_1.default.connect(`mongodb://erflod5:1234@${key_1.default.server}/${key_1.default.database}`, { useNewUrlParser: true, useUnifiedTopology: true });
+        //mongoose.connect(`mongodb://erflod5:1234@${keyMongo.server}/${keyMongo.database}`,{useNewUrlParser : true,useUnifiedTopology: true});
+        mongoose_1.default.connect(`mongodb://${key_1.default.server}/${key_1.default.database}`, { useNewUrlParser: true, useUnifiedTopology: true });
         mongoose_1.default.set('useCreateIndex', true);
         mongoose_1.default.connection.on('open', () => {
             console.log('Database connection successful');

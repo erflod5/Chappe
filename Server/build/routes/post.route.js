@@ -8,8 +8,9 @@ class PostRoute {
         this._config();
     }
     _config() {
-        this.router.get('/', post_controller_1.postController.read);
+        this.router.get('/:_id', post_controller_1.postController.read);
         this.router.post('/', post_controller_1.postController.create);
+        this.router.post('/Translate', post_controller_1.postController.translate);
     }
 }
 const postRoute = new PostRoute();

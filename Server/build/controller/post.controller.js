@@ -20,17 +20,26 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const post_model_1 = __importDefault(require("../models/post.model"));
+const follows_model_1 = __importDefault(require("../models/follows.model"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const AWS = __importStar(require("aws-sdk"));
 const uuid_1 = require("uuid");
 const aws_1 = __importDefault(require("../keys/aws"));
-var s3 = new AWS.S3(aws_1.default.s3);
+const s3 = new AWS.S3(aws_1.default.s3);
+const translate = new AWS.Translate(aws_1.default.translate);
 class PostController {
-    constructor() {
-    }
+    constructor() { }
     read(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const posts = yield post_model_1.default.find({}, { '_id': 0 }).populate({ path: 'user_id', select: 'username fullname profileImg -_id' }).sort('-creationDate');
+            let { _id } = req.params;
+            console.log(_id);
+            let followed = yield follows_model_1.default.find({ user: _id });
+            let follows_clean = [];
+            followed.forEach((follow) => {
+                follows_clean.push(follow.followed);
+            });
+            follows_clean.push(_id);
+            const posts = yield post_model_1.default.find({ user_id: { $in: follows_clean } }, { '_id': 0 }).populate({ path: 'user_id', select: 'username fullname profileImg -_id' }).sort('-creationDate');
             let actualPost = [];
             posts.forEach((post) => {
                 actualPost.push({
@@ -74,6 +83,18 @@ class PostController {
                 console.log(err);
                 res.status(200).json({ status: false });
             });
+        });
+    }
+    translate(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { text } = req.body;
+            let params = {
+                SourceLanguageCode: 'auto',
+                TargetLanguageCode: 'es',
+                Text: text || 'Nothing here'
+            };
+            let data = yield translate.translateText(params).promise();
+            res.json({ translate: data.TranslatedText });
         });
     }
 }

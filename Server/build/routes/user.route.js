@@ -13,7 +13,7 @@ class UserRoute {
         this.router.put('/:_id', user_controller_1.userController.update);
         this.router.delete('/:_id', user_controller_1.userController.remove);
         this.router.get('/', user_controller_1.userController.readMany);
-        this.router.get('/friends/:_id', user_controller_1.userController.readFriends);
+        //this.router.get('/followed/:_id',userController.readFollowed);
     }
 }
 const userRoute = new UserRoute();

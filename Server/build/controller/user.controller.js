@@ -20,7 +20,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = __importDefault(require("../models/user.model"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const sha1_1 = __importDefault(require("sha1"));
 const AWS = __importStar(require("aws-sdk"));
 const uuid_1 = require("uuid");
@@ -55,7 +54,6 @@ class UserController {
                 res.status(200).json(data);
             })
                 .catch((err) => {
-                console.log(err);
                 res.status(200).send({});
             });
         });
@@ -140,15 +138,6 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             const users = yield user_model_1.default.find({}).select('username fullname profileImg').exec();
             //const users = await User.find({},{'_id' : 0}).select('username fullname profileImg').exec();
-            res.status(200).json(users);
-        });
-    }
-    readFriends(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { _id } = req.params;
-            const obId = new mongoose_1.default.Types.ObjectId(_id);
-            console.log(obId);
-            const users = yield user_model_1.default.find({ _id: { $ne: obId } }, { '_id': 0 }).select('username fullname profileImg').exec();
             res.status(200).json(users);
         });
     }
