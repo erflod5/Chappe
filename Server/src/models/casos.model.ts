@@ -2,7 +2,7 @@ import mongoose, {Schema, Document} from 'mongoose';
 
 export interface ICasos extends Document{
     pais : string,
-    casos : [{date : Date, confirmed : number, deaths : number, recoverd : number}]
+    casos : [{date : Date, confirmed : number, deaths : number, recovered : number}]
 }
 
 const CasosSchema : Schema = new Schema({
@@ -12,7 +12,7 @@ const CasosSchema : Schema = new Schema({
             date : {type : Date},
             confirmed : {type : Number},
             deaths : {type : Number},
-            recoverd : {type : Number}
+            recovered : {type : Number}
         }
     ]
 });

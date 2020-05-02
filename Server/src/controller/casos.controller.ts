@@ -40,6 +40,12 @@ class CasosController{
         const casos = await Casos.find({});
         res.status(200).json(casos);
     }
+
+    public async getCasos(req: Request, res: Response){
+        let {pais, fecha, tipo} = req.body;
+        let casos = await Casos.findOne({pais : pais, 'casos.date' : fecha,},{_id: 0, 'casos.$' : 1});         
+        res.send({ confirmed : casos?.casos[0].confirmed, deaths : casos?.casos[0].deaths,recoverd : casos?.casos[0].recovered});
+    }
 }
 
 export const casosController = new CasosController();

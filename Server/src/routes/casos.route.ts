@@ -13,6 +13,7 @@ class ChatRoute{
         this.router.post('/',casosController.insertMany);
         this.router.get('/',casosController.readMany);
         this.router.get('/:_id',casosController.readOne);
+        this.router.post('/casos',casosController.getCasos);
     }
 }
 
