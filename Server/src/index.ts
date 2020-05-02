@@ -9,6 +9,7 @@ import PostRoute from './routes/post.route';
 import LoginRoute from './routes/login.route';
 import FollowRoute from './routes/follows.route';
 import ChatRoute from './routes/chat.route';
+import Chat from './models/chat.model';
 
 //Init
 const app = express();
@@ -45,13 +46,26 @@ io.on('connectionc',(socket : any)=>{
                 io.to(user).emit(message);
             });
         }
-        //TODO guardar en base de datos
+        saveMsg(message.from,message.to,message.text);
       });
 
     socket.on('handshake',(user:any)=>{
+        console.log(user);
         if(users[user] === undefined || users[user] === null){
             users[user] = [];
         }
         users[user].push(socket.id);
     });
 });
+
+
+function saveMsg(emisor : string, receptor : string, text : string){
+    Chat.updateOne(
+        { $or : [{ user1 : emisor, user2 : receptor}, {user1 : receptor, user2 : emisor}]},
+        {$push : {messages : {emisor : emisor, text : text}}}
+    ).then((data)=>{
+        console.log("SaveMsg: ",data);
+    }).catch((err)=>{
+        console.error("ErrorMsg: ",err);
+    });
+}
