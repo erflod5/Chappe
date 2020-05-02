@@ -54,12 +54,14 @@ class FollowController{
         let userMatch = await User.find({
             $or : [
                 {fullname :  { $regex : name, $options: 'i'}},
-                {fullname : { $regex: '.*' + name + '.*', $options: 'i' }}
+                {fullname : { $regex: '.*' + name + '.*', $options: 'i' }},
             ]
         });
         let users : Array<any> = [];
         for(let i = 0; i < userMatch.length; i++){
             let user = userMatch[i];
+            if(user._id == id)
+                continue;
             let isFollowed = await Follow.findOne({user : id, followed : user._id});
             users.push({
                 _id : user._id,
