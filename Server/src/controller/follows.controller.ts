@@ -60,17 +60,28 @@ class FollowController{
         let users : Array<any> = [];
         for(let i = 0; i < userMatch.length; i++){
             let user = userMatch[i];
-            let isFriend = await Follow.findOne({user : id, followed : user._id});
+            let isFollowed = await Follow.findOne({user : id, followed : user._id});
             users.push({
                 _id : user._id,
                 username : user.username,
                 fullname : user.fullname,
                 profileImg : user.profileImg,
-                isFriend : isFriend != null
+                followed : isFollowed != null
             });
-            console.log(isFriend);
+            console.log(isFollowed);
         }
         res.send(users);
+    }
+
+    public async notFollowed(req: Request, res: Response){
+        const {_id} = req.params;
+        let followed = await Follow.find({user : _id});
+        let followedClean : any = [_id];
+        followed.forEach((follow)=>{
+            followedClean.push(follow.followed);
+        });
+        let notFollowed = await User.find({_id : {$nin: followedClean}}).select('fullname username profileImg');
+        res.send(notFollowed);
     }
 }
 
