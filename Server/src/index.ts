@@ -10,6 +10,7 @@ import LoginRoute from './routes/login.route';
 import FollowRoute from './routes/follows.route';
 import ChatRoute from './routes/chat.route';
 import Chat from './models/chat.model';
+import CasosRoute from './routes/casos.route';
 
 //Init
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/post',PostRoute);
 app.use('/api/login',LoginRoute);
 app.use('/api/follow',FollowRoute);
 app.use('/api/chat',ChatRoute);
+app.use('/api/casos',CasosRoute);
 
 //Running Server
 server.listen(app.get('port'),()=>{
