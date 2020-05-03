@@ -14,6 +14,7 @@ class ChatRoute{
         this.router.get('/',casosController.readMany);
         this.router.get('/:_id',casosController.readOne);
         this.router.post('/casos',casosController.getCasos);
+        this.router.post('/graph',casosController.getGraph);
     }
 }
 

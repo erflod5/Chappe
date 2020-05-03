@@ -46,6 +46,20 @@ class CasosController{
         let casos = await Casos.findOne({pais : pais, 'casos.date' : fecha,},{_id: 0, 'casos.$' : 1});         
         res.send({ confirmed : casos?.casos[0].confirmed, deaths : casos?.casos[0].deaths,recoverd : casos?.casos[0].recovered});
     }
+
+    public async getGraph(req: Request, res: Response){
+        let {pais, fechaI, fechaF} = req.body;
+        fechaI = new Date(fechaI);
+        fechaF = new Date(fechaF);
+        let casos = await Casos.findOne({pais : pais});
+        let cleanCasos : Array<any> = [];
+        casos?.casos.forEach((caso)=>{
+            if(caso.date <= fechaF && caso.date >= fechaI){
+                cleanCasos.push(caso);
+            }
+        });
+        res.send(cleanCasos);
+    }
 }
 
 export const casosController = new CasosController();
