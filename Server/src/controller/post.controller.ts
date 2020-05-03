@@ -15,7 +15,6 @@ class PostController{
 
     public async read(req : Request, res : Response){
         let {_id} = req.params;
-        console.log(_id);
         let followed = await Follow.find({user : _id});
         let follows_clean = [];
         followed.forEach((follow : any)=>{

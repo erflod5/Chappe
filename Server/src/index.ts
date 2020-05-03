@@ -39,26 +39,34 @@ server.listen(app.get('port'),()=>{
 //Socket
 let users : Array<Array<string>> = [];
 
-io.on('connectionc',(socket : any)=>{
+io.on('connection',(socket : any)=>{
     console.log('a user connected');
     socket.on("message", function(message: any) {
-        console.log(message);
+        console.log('message: ', message);
         if(users[message.to] != null && users[message.to] != undefined){
+            console.log("yes");
             users[message.to].forEach((user)=>{
-                io.to(user).emit(message);
+                console.log("Yes again",user);
+                io.to(user).emit('message',message);
             });
         }
         saveMsg(message.from,message.to,message.text);
       });
 
     socket.on('handshake',(user:any)=>{
-        console.log(user);
+        console.log('Handshake: ',user);
         if(users[user] === undefined || users[user] === null){
             users[user] = [];
         }
-        users[user].push(socket.id);
+        users[user][0] = socket.id;
+        console.log(users);
     });
+
+    socket.on('disconnect', (user:any) => {
+        console.log('user disconnected: ',user);
+      });
 });
+
 
 
 function saveMsg(emisor : string, receptor : string, text : string){
