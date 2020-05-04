@@ -49,7 +49,6 @@ class UserController{
     public async update(req: Request, res: Response){
         const {_id} = req.params;
         const body = req.body;
-        //const user = await User.findOne({username : body.username, password : sha1(body.password)});
         let user = await User.findOne({_id : _id, password : sha1(body.password)});
         if(!user){
             console.log("password incorrecta");
@@ -84,7 +83,8 @@ class UserController{
             let newUser = {
                 username : body.username  == undefined ? user?.username : body.username,
                 fullname : body.fullname == undefined ? user?.fullname : body.fullname,
-                profileImg : body.profileImg == undefined ? user?.profileImg : body.profileImg  
+                profileImg : body.profileImg == undefined ? user?.profileImg : body.profileImg,
+                covidBot : body.covidBot == undefined ? user.covidBot : body.covidBot
             };
             console.log(newUser);
             User.updateOne({_id},newUser)
