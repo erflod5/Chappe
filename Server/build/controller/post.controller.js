@@ -32,7 +32,6 @@ class PostController {
     read(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let { _id } = req.params;
-            console.log(_id);
             let followed = yield follows_model_1.default.find({ user: _id });
             let follows_clean = [];
             followed.forEach((follow) => {

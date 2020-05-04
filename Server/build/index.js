@@ -15,6 +15,7 @@ const login_route_1 = __importDefault(require("./routes/login.route"));
 const follows_route_1 = __importDefault(require("./routes/follows.route"));
 const chat_route_1 = __importDefault(require("./routes/chat.route"));
 const chat_model_1 = __importDefault(require("./models/chat.model"));
+const casos_route_1 = __importDefault(require("./routes/casos.route"));
 //Init
 const app = express_1.default();
 const server = http_1.default.createServer(app);
@@ -30,29 +31,36 @@ app.use('/api/post', post_route_1.default);
 app.use('/api/login', login_route_1.default);
 app.use('/api/follow', follows_route_1.default);
 app.use('/api/chat', chat_route_1.default);
+app.use('/api/casos', casos_route_1.default);
 //Running Server
 server.listen(app.get('port'), () => {
     console.log(`App listening on port ${app.get('port')}`);
 });
 //Socket
 let users = [];
-io.on('connectionc', (socket) => {
+io.on('connection', (socket) => {
     console.log('a user connected');
     socket.on("message", function (message) {
-        console.log(message);
+        console.log('message: ', message);
         if (users[message.to] != null && users[message.to] != undefined) {
+            console.log("yes");
             users[message.to].forEach((user) => {
-                io.to(user).emit(message);
+                console.log("Yes again", user);
+                io.to(user).emit('message', message);
             });
         }
         saveMsg(message.from, message.to, message.text);
     });
     socket.on('handshake', (user) => {
-        console.log(user);
+        console.log('Handshake: ', user);
         if (users[user] === undefined || users[user] === null) {
             users[user] = [];
         }
-        users[user].push(socket.id);
+        users[user][0] = socket.id;
+        console.log(users);
+    });
+    socket.on('disconnect', (user) => {
+        console.log('user disconnected: ', user);
     });
 });
 function saveMsg(emisor, receptor, text) {

@@ -55,7 +55,6 @@ class FollowController {
             followed.forEach((follow) => {
                 followed_clean.push(follow.followed);
             });
-            console.log(followed_clean);
             const mutualFollow = yield follows_model_1.default.find({ user: { $in: followed_clean }, followed: _id })
                 .populate([{ path: 'user', select: 'username fullname profileImg' }]).select('user -_id');
             res.json(mutualFollow);
@@ -67,12 +66,14 @@ class FollowController {
             let userMatch = yield user_model_1.default.find({
                 $or: [
                     { fullname: { $regex: name, $options: 'i' } },
-                    { fullname: { $regex: '.*' + name + '.*', $options: 'i' } }
+                    { fullname: { $regex: '.*' + name + '.*', $options: 'i' } },
                 ]
             });
             let users = [];
             for (let i = 0; i < userMatch.length; i++) {
                 let user = userMatch[i];
+                if (user._id == id)
+                    continue;
                 let isFollowed = yield follows_model_1.default.findOne({ user: id, followed: user._id });
                 users.push({
                     _id: user._id,
@@ -81,7 +82,6 @@ class FollowController {
                     profileImg: user.profileImg,
                     followed: isFollowed != null
                 });
-                console.log(isFollowed);
             }
             res.send(users);
         });

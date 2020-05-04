@@ -62,7 +62,6 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             const { _id } = req.params;
             const body = req.body;
-            //const user = await User.findOne({username : body.username, password : sha1(body.password)});
             let user = yield user_model_1.default.findOne({ _id: _id, password: sha1_1.default(body.password) });
             if (!user) {
                 console.log("password incorrecta");
@@ -95,7 +94,8 @@ class UserController {
                 let newUser = {
                     username: body.username == undefined ? user === null || user === void 0 ? void 0 : user.username : body.username,
                     fullname: body.fullname == undefined ? user === null || user === void 0 ? void 0 : user.fullname : body.fullname,
-                    profileImg: body.profileImg == undefined ? user === null || user === void 0 ? void 0 : user.profileImg : body.profileImg
+                    profileImg: body.profileImg == undefined ? user === null || user === void 0 ? void 0 : user.profileImg : body.profileImg,
+                    covidBot: body.covidBot == undefined ? user.covidBot : body.covidBot
                 };
                 console.log(newUser);
                 user_model_1.default.updateOne({ _id }, newUser)
