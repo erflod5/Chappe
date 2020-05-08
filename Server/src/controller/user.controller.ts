@@ -122,7 +122,7 @@ class UserController{
     }
 
     public async readMany(req: Request, res: Response){
-        const users = await User.find({}).select('username fullname profileImg').exec();
+        const users = await User.find({}).select('username fullname profileImg covidBot').exec();
         //const users = await User.find({},{'_id' : 0}).select('username fullname profileImg').exec();
         res.status(200).json(users);
     }
