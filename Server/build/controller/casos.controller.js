@@ -58,6 +58,7 @@ class CasosController {
         return __awaiter(this, void 0, void 0, function* () {
             let { pais, fecha, tipo } = req.body;
             let casos = yield casos_model_1.default.findOne({ pais: pais, 'casos.date': fecha, }, { _id: 0, 'casos.$': 1 });
+            console.log(casos);
             res.send({ confirmed: casos === null || casos === void 0 ? void 0 : casos.casos[0].confirmed, deaths: casos === null || casos === void 0 ? void 0 : casos.casos[0].deaths, recoverd: casos === null || casos === void 0 ? void 0 : casos.casos[0].recovered });
         });
     }
