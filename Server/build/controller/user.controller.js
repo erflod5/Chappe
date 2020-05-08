@@ -136,7 +136,7 @@ class UserController {
     }
     readMany(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const users = yield user_model_1.default.find({}).select('username fullname profileImg').exec();
+            const users = yield user_model_1.default.find({}).select('username fullname profileImg covidBot').exec();
             //const users = await User.find({},{'_id' : 0}).select('username fullname profileImg').exec();
             res.status(200).json(users);
         });
