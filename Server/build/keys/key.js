@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 let keyMongo = {
-    server: 'localhost:27017',
-    database: 'uSocial'
+    server: process.env.DB_SERVER || '3.23.132.171:27017',
+    database: process.env.DB_DATABASE || 'uSocial',
+    user: process.env.DB_USER || 'erflod1',
+    pass: process.env.DB_PASS || 'usocial123'
 };
 exports.default = keyMongo;

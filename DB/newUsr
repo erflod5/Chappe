@@ -1,0 +1,26 @@
+db.createUser({
+      user: "admin",
+      pwd: "usocial123",
+      roles: [
+                { role: "userAdminAnyDatabase", db: "admin" },
+                { role: "readWriteAnyDatabase", db: "admin" },
+                { role: "dbAdminAnyDatabase",   db: "admin" }
+             ],
+      mechanisms:[  
+            "SCRAM-SHA-1"
+      ]
+  });
+
+
+db.createUser({
+      user: "erflod1",
+      pwd: "usocial123",
+      roles: [
+                { role: "userAdmin", db: "uSocial" },
+                { role: "dbAdmin",   db: "uSocial" },
+                { role: "readWrite", db: "uSocial" }
+             ],
+      mechanisms:[  
+            "SCRAM-SHA-1"
+      ]
+  });
