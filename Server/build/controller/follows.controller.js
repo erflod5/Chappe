@@ -42,7 +42,7 @@ class FollowController {
             const { _id } = req.params;
             const followed = yield follows_model_1.default.find({ user: _id }).populate({
                 path: 'followed',
-                select: 'fullname username profileImg'
+                select: 'fullname username profileImg covidBot'
             });
             res.send(followed);
         });
@@ -56,7 +56,7 @@ class FollowController {
                 followed_clean.push(follow.followed);
             });
             const mutualFollow = yield follows_model_1.default.find({ user: { $in: followed_clean }, followed: _id })
-                .populate([{ path: 'user', select: 'username fullname profileImg' }]).select('user -_id');
+                .populate([{ path: 'user', select: 'username fullname profileImg covidBot' }]).select('user -_id');
             res.json(mutualFollow);
         });
     }
@@ -94,7 +94,7 @@ class FollowController {
             followed.forEach((follow) => {
                 followedClean.push(follow.followed);
             });
-            let notFollowed = yield user_model_1.default.find({ _id: { $nin: followedClean } }).select('fullname username profileImg');
+            let notFollowed = yield user_model_1.default.find({ _id: { $nin: followedClean } }).select('fullname username profileImg covidBot');
             res.send(notFollowed);
         });
     }

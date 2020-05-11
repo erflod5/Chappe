@@ -9,7 +9,8 @@
     "dev": "nodemon",
     "build": "tsc",
     "ts:node": "ts-node src/",
-    "prod": "tsc && node ./build/app.js"
+    "prod": "node ./build/index.js",
+    "start" : "nodemon"
   },
   "repository": {
     "type": "git",

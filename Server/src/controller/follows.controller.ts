@@ -29,7 +29,7 @@ class FollowController{
         const {_id} = req.params;
         const followed = await Follow.find({user : _id}).populate({
             path : 'followed',
-            select : 'fullname username profileImg'
+            select : 'fullname username profileImg covidBot'
         });
         res.send(followed);
     }
@@ -44,7 +44,7 @@ class FollowController{
         });
 
         const mutualFollow = await Follow.find({user : {$in : followed_clean}, followed : _id})
-                            .populate([{path : 'user',select : 'username fullname profileImg'}]).select('user -_id');
+                            .populate([{path : 'user',select : 'username fullname profileImg covidBot'}]).select('user -_id');
         res.json(mutualFollow);
     }
     
@@ -80,7 +80,7 @@ class FollowController{
         followed.forEach((follow)=>{
             followedClean.push(follow.followed);
         });
-        let notFollowed = await User.find({_id : {$nin: followedClean}}).select('fullname username profileImg');
+        let notFollowed = await User.find({_id : {$nin: followedClean}}).select('fullname username profileImg covidBot');
         res.send(notFollowed);
     }
 }
