@@ -47,11 +47,11 @@
 ### IAGruop
 * **Descripcion:** Grupo de administradores de Aws Translate
 * **Politicas Asociadas:** TranslateFullAccess
-* 
+
 ## Politicas
 ### ChappeS3
 * **Descripcion:** Politica creada para el acceso seguro al Bucket de uSocialBot, excluyendo el acceso a cualquier otro bucket que no sea este.
-* ** JSON: **
+* **JSON:**
 ````js
 	{
 	    "Version": "2012-10-17",
