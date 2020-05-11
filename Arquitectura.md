@@ -30,3 +30,9 @@ MongoDB es especialmente útil en entornos que requieran escalabilidad. Con sus 
 Las demas tecnologias, al ser desarrolladas en un mismo lenguaje podemos desarrollar tanto como en el backend y el fronend un mismo estandar de programacion y facilitar el desrrollo.
 
 La implicacion de un chat nos viene de maravilla en estas tecnologias, ya que con Socket.io podemos manejar los datos en tiempo real en ambas partes con la misma libreria.
+
+### Arquitectura de 3 capas
+Se utilizó una arquitectura de tres capas, donde la aplicación web creada con Angular representa la capa de presentación, el servidor con Node.JS la capa intermedia y la base de datos MongoDB como capa de datos. 
+
+Al manejar el software en 3 capas diferentes, donde cada capa reside en una instancia EC2 diferente, permite separar y abstraer la aplicación, para que su desarrollo sea más limpio y organizado, así tambien ofrece seguridad, ya que no todo se encuentra en una misma infraestructura o capa, por lo que si llegase a haber un problema en alguna de las capas, este problema seria independiente a las otras capas y se solucionaría directamente sobre la EC2 y el servidor afectado.
+
