@@ -1,13 +1,3 @@
-# Practica 2
-## Seminario de Sistemas 1
-## Grupo 5
-
-### Integrantes
-|Nombre|Carnet  |
-|--|--|
-|Luis Angel Vargas Leon|201701023|
-|Erik Gerardo Flores Diaz|201701066|
-
 # Servidor Web
 Para correr el servidor, ejecutar los siguientes comandos
 ````sh
@@ -259,19 +249,3 @@ TypeScript es un lenguaje de programación libre y de código abierto desarrolla
 		}
 ````
 * **Servicios utilizados:** Ninguno.
-
-# VPC
- Para immplementar una Virtual Private Cloud (VPC) en AWS, se debe ir a la seccion del servicio de VPC, se crea una nueva VPC seleccionando donde esta la opcion Launch VPC Wizard, esta VPC se creo en la red 10.0.0.0/16
-
-#### Subnets
-Una vez asignado un nombre a la VPC, se deben crear las subnets que iran en la red de la VPC, en este caso creamos 3 subredes, una para la pagina web publica, otra para el servidor y una para la base de datos, en las direcciones 10.0.1.0/24, 10.0.2.0/24 y 10.0.3.0/24 correspondientemente.
-
-#### Internet Gateway
-Una vez creadas las subredes se debe configurar un Internet Gateway y asociarlo a la VPC que recien creamos, este nos permitira tener acceso a internet en nuestras subredes. 
-
-#### Route Tables
-Creamos dos Route Tables, una para nuestra subred publica y otra para nuestra subred privada. Para obtener acceso publico se debe colocar en 'Routes' -> 'Edit Routes' la direccion 0.0.0.0/0 lo que permite que puedan tener acceso desde cualquier red o IP, y la privada quedara restringida para tener comunicacion solo con la red 10.0.0.0/16 de la VPC.
-Una vez creadas se asocian las subredes creadas previamente con cada una de las Route Tables por medio de la opcion 'Subner Associations'.
-
-
-
