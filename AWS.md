@@ -57,12 +57,12 @@
 	    "Version": "2012-10-17",
 	    "Statement": [
 	        {
-	            "Sid": "sfd3828daj",
+	            "Sid": "",
 	            "Effect": "Allow",
 	            "Action": "s3:*",
 	            "Resource": [
-	                "arn:aws:s3:::usocial",
-	                "arn:aws:s3:::usocial/*"
+	                "bucketname",
+	                "bucketname/*"
 	            ]
 	        }
 	    ]
